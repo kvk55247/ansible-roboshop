@@ -15,15 +15,15 @@
 
   - name: create roboshop system user
     ansible.builtin.user:
-    name: roboshop
-    shell: /sbin/nologin
-    system: true
-    home: /app
+      name: roboshop
+      shell: /sbin/nologin
+      system: true
+      home: /app
 
   - name: create app directory
     ansible.builtin.file:
-    path: /app
-    state: directory
+      path: /app
+      state: directory
 
   - name: download catalogue code
     ansible.builtin.get_url:
