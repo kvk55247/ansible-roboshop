@@ -46,7 +46,7 @@
       dest: /etc/systemd/system/catalogue.service
 
   - name: systemctl daemon reload
-    ansile.builtin.systemd_services:
+    ansile.builtin.systemd_service:
       daemon_reload: true
   
   - name: start and enable catalogue
