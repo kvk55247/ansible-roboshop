@@ -2,10 +2,13 @@
   hosts: shipping 
   become: yes
   tasks:
-  - name: install maven
+  - name: install maven and mysql
     ansible.builtin.dnf:
-      name: maven
+      name: {{ item }}
       state: present
+    loop:
+    - maven
+    - mysql
 
   - name: create roboshop system user
     ansible.builtin.user:
@@ -56,5 +59,28 @@
       name: shipping
       state: started
       enabled: yes
-
   
+  # - name: connect to mysql using app user
+  #   community.mysql.mysql_db:
+  #     login_user: root
+  #     login_password: RoboShop@1
+  #     login_host: mysql.daws84s.info
+  #     login_db: cities
+
+  - name: import data
+    community.mysql.mysql_db:
+      login_user: root
+      login_password: RoboShop@1
+      login_host: mysql.daws84s.info
+      state: import
+      target: {{ item }}
+    loop:
+    - /app/db/schema.sql
+    - /app/db/app-user.sql
+    - /app/db/master-data.sql
+
+  - name: restart shipping
+    ansible.builtin.service:
+      name: shipping
+      state: restarted
+    
