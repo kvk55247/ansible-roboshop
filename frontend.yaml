@@ -17,10 +17,10 @@
       ansible.builtin.service:
         name: nginx
         state: started
-        enabld: yes
+        enabled: yes
       
     - name: remove html directory
-      ansile.builtin.file:
+      ansible.builtin.file:
         path: /usr/share/nginx/html
         state: absent
 
