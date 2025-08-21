@@ -1,0 +1,5 @@
+- name: configure payment component
+  hosts: payment
+  become: yes
+  tasks:
+  - name: 
